@@ -35,7 +35,6 @@ module.exports = function (app) {
 	app.configure('production', function () {
 		app.use(express.errorHandler()); 
 	});
-
+	
+	app.config = config;
 };
-
-module.exports.config = config;

@@ -1,3 +1,6 @@
 {
-	"secret": "secrethash"
+	"secret": "secrethash",
+	"db": {
+		"uri": "mongodb://host:port/collection"
+	}
 }
