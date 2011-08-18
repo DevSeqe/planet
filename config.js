@@ -1,8 +1,19 @@
+'use strict';
+
 var express = require('express'),
 	dot = require('dot'),
+	auth = require('connect-auth'),
 	config = JSON.parse(
 		require('fs').readFileSync('config.json').toString()
 	);
+
+var validatePassword = function (login, password, success_callback, failure_callback) {
+	if (login === password)
+		success_callback();
+	else
+		failure_callback();
+};
+
 
 // Configuration
 module.exports = function (app) {
@@ -18,6 +29,9 @@ module.exports = function (app) {
 		app.use(express.cookieParser());
 		app.use(express.session({ secret: config.secret }));
 		app.use(require('stylus').middleware({ src: __dirname + '/public' }));
+		app.use(auth([
+			auth.Basic({ validatePassword: validatePassword })
+		]));
 		app.use(app.router);
 		app.use(express.static(__dirname + '/public'));
 

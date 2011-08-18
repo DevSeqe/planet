@@ -1,4 +1,6 @@
-var express = require('express')
+'use strict';
+
+var express = require('express'),
 	config = require('./config'),
 	db = require('./db'),
 	routes = require('./routes');
