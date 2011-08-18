@@ -8,6 +8,7 @@
 		"dot": ">= 0.0.1",
 		"mongoose": ">= 1.8.2",
 		"express-mongoose": ">= 0.0.2",
-		"connect-auth": ">= 0.3.2"
+		"connect-auth": ">= 0.3.2",
+		"supervisor": ">= 0.1.2"
 	}
 }

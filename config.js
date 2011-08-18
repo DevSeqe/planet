@@ -28,10 +28,10 @@ module.exports = function (app) {
 		app.use(express.methodOverride());
 		app.use(express.cookieParser());
 		app.use(express.session({ secret: config.secret }));
-		app.use(require('stylus').middleware({ src: __dirname + '/public' }));
 		app.use(auth([
 			auth.Basic({ validatePassword: validatePassword })
 		]));
+		app.use(require('stylus').middleware({ src: __dirname + '/public' }));
 		app.use(app.router);
 		app.use(express.static(__dirname + '/public'));
 

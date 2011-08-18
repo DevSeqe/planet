@@ -3,7 +3,7 @@
 var express = require('express'),
 	config = require('./config'),
 	db = require('./db'),
-	routes = require('./routes');
+	actions = require('./actions/');
 
 var app = module.exports = express.createServer();
 
@@ -17,7 +17,7 @@ db(app, function (err) {
 		console.log(err);
 	}
 	else {
-		routes(app);
+		actions(app);
 
 		app.listen(3000);
 		console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);

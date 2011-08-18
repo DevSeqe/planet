@@ -1,23 +1,6 @@
 'use strict';
 
-var express = require('express');
-
-// Routes
 module.exports = function (app) {
-	app.get('/', function (req, res) {
-		var Article = app.db.model('Article');
-
-
-		res.render('index.html', {
-			title: 'Express',
-			newses: [
-				'a',
-				'b',
-				'c'
-			]
-		});
-	});
-
 	/*
 	 * /admin, /admin/, /admin/*
 	 */
@@ -35,6 +18,7 @@ module.exports = function (app) {
 	app.get('/login', function (req, res, next) {
 		req.authenticate([ 'basic' ], function (err, authenticated) {
 			if (authenticated) {
+				console.log('autologin?');
 				res.writeHead(303, { 'Location': '/admin' });
 				res.end('');
 			}
@@ -42,6 +26,12 @@ module.exports = function (app) {
 				next();
 			}
 		});
+	});
+
+	app.get('/logout', function (req, res) {
+		req.logout();
+		res.writeHead(303, { 'Location': '/' });
+		res.end('');
 	});
 
 	app.get('/admin', function (req, res) {
