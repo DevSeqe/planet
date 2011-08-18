@@ -1,0 +1,11 @@
+{
+	"name": "planet",
+	"version": "0.0.1",
+	"private": true,
+	"dependencies": {
+		"express": "2.4.3",
+		"stylus": ">= 0.0.1",
+		"dot": ">= 0.0.1",
+		"mongoose": ">= 1.8.2"
+	}
+}
