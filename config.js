@@ -2,18 +2,11 @@
 
 var express = require('express'),
 	dot = require('dot'),
-	auth = require('connect-auth'),
 	config = JSON.parse(
 		require('fs').readFileSync('config.json').toString()
-	);
-
-var validatePassword = function (login, password, success_callback, failure_callback) {
-	if (login === password)
-		success_callback();
-	else
-		failure_callback();
-};
-
+	),
+	secure_middleware = require('./utils/middlewares/secure'),
+	auth = require('./utils/middlewares/auth');
 
 // Configuration
 module.exports = function (app) {
@@ -28,13 +21,15 @@ module.exports = function (app) {
 		app.use(express.methodOverride());
 		app.use(express.cookieParser());
 		app.use(express.session({ secret: config.secret }));
-		app.use(auth([
-			auth.Basic({ validatePassword: validatePassword })
-		]));
 		app.use(require('stylus').middleware({ src: __dirname + '/public' }));
-		app.use(app.router);
 		app.use(express.static(__dirname + '/public'));
 
+		app.use(auth());
+		// /admin /admin/ /admin? /admin/* admin?*
+		app.use(secure_middleware(/^\/admin([\/?].*)?$/, '/login'));
+
+		app.use(app.router);
+	
 		app.register('.html', {
 			compile: function (str, options) {
 				return dot.template(str);

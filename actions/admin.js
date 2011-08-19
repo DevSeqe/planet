@@ -1,37 +1,28 @@
 'use strict';
 
 module.exports = function (app) {
-	/*
-	 * /admin, /admin/, /admin/*
-	 */
-	app.get(/\/admin(\/.*)?$/, function (req, res, next) {
-		if (req.isAuthenticated()) {
-			console.log('serio?');
-			next();
-		}
-		else {
-			res.writeHead(303, { 'Location': '/login' });
-			res.end('');
-		}
-	});
+
+	app.redirect('admin', '/admin');
 
 	app.get('/login', function (req, res, next) {
-		req.authenticate([ 'basic' ], function (err, authenticated) {
-			if (authenticated) {
-				console.log('autologin?');
-				res.writeHead(303, { 'Location': '/admin' });
-				res.end('');
+		var User = app.db.model('User');
+
+		User.findByLoginAndPassword('reinmar', '1234', function (err, user) {
+			if (err) return next(err);
+
+			if (user) {
+				req.authenticate(user.login);
+				res.redirect('admin');
 			}
 			else {
-				next();
+				res.end('bledne haslo');
 			}
 		});
 	});
 
 	app.get('/logout', function (req, res) {
 		req.logout();
-		res.writeHead(303, { 'Location': '/' });
-		res.end('');
+		res.redirect('homepage');
 	});
 
 	app.get('/admin', function (req, res) {

@@ -31,8 +31,11 @@ module.exports = function (app) {
 		return generateHash(salt, v);
 	});
 
-	User.statics.findByLoginAndPassword = function (login, password) {
-		var promise = new Promise();
+	/*
+	 * @param {Function} callback optional - method returns Promise
+	 */
+	User.statics.findByLoginAndPassword = function (login, password, callback) {
+		var promise = new Promise(callback);
 
 		this.findOne({ login: login }).run(function (err, user) {
 			if (err) {

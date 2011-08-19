@@ -6,6 +6,8 @@ var express = require('express'),
 // Routes
 module.exports = function (app) {
 
+	app.redirect('homepage', '/');
+
 	app.get('/', function (req, res) {
 		var Article = app.db.model('Article');
 		var User = app.db.model('User');
@@ -21,7 +23,7 @@ module.exports = function (app) {
 			newses: [
 				'a',
 				'b',
-				req.isAuthenticated() ? 'tak' : 'nie'
+				/*req.isAuthenticated() ? 'tak' : 'nie'*/
 			]
 		});
 	});
