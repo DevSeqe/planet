@@ -4,10 +4,14 @@ module.exports = function (app) {
 
 	app.redirect('admin', '/admin');
 
-	app.get('/login', function (req, res, next) {
+	app.get('/login', function (req, res) {
+		res.end('zaloguj sie');
+	});
+
+	app.post('/login', function (req, res) {
 		var User = app.db.model('User');
 
-		User.findByLoginAndPassword('reinmar', '1234', function (err, user) {
+		User.findByLoginAndPassword('reinmar', '123', function (err, user) {
 			if (err) return next(err);
 
 			if (user) {

@@ -5,7 +5,7 @@ var express = require('express'),
 	config = JSON.parse(
 		require('fs').readFileSync('config.json').toString()
 	),
-	secure_middleware = require('./utils/middlewares/secure'),
+	secure_paths = require('./utils/middlewares/secure_paths'),
 	auth = require('./utils/middlewares/auth');
 
 // Configuration
@@ -26,7 +26,8 @@ module.exports = function (app) {
 
 		app.use(auth());
 		// /admin /admin/ /admin? /admin/* admin?*
-		app.use(secure_middleware(/^\/admin([\/?].*)?$/, '/login'));
+		// /^\/admin([\/?].*)?$/
+		app.use(secure_paths([ '/admin/*', '/admin' ], '/login'));
 
 		app.use(app.router);
 	
