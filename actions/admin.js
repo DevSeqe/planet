@@ -5,13 +5,16 @@ module.exports = function (app) {
 	app.redirect('admin', '/admin');
 
 	app.get('/login', function (req, res) {
-		res.end('zaloguj sie');
+		res.render('admin/login.html', {
+			layout: 'static.html',
+			title: 'Zaloguj się'
+		});
 	});
 
 	app.post('/login', function (req, res) {
 		var User = app.db.model('User');
 
-		User.findByLoginAndPassword('reinmar', '123', function (err, user) {
+		User.findByLoginAndPassword(req.body.name, req.body.password, function (err, user) {
 			if (err) return next(err);
 
 			if (user) {

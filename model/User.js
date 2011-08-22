@@ -20,9 +20,9 @@ module.exports = function (app) {
 
 
 	var User = new Schema({
-		login: { type: String, trim: true, required: true },
-		password: { type: String },
-		salt: { type: String }
+		login: { type: String, trim: true, required: true, unique: true },
+		password: { type: String, required: true },
+		salt: { type: String, required: true }
 	});
 
 	User.path('password').set(function (v) {
@@ -32,7 +32,7 @@ module.exports = function (app) {
 	});
 
 	/*
-	 * @param {Function} callback optional - method returns Promise
+	 * @param {Function} callback optional (because method returns Promise)
 	 */
 	User.statics.findByLoginAndPassword = function (login, password, callback) {
 		var promise = new Promise(callback);
