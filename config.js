@@ -5,8 +5,8 @@ var express = require('express'),
 	config = JSON.parse(
 		require('fs').readFileSync('config.json').toString()
 	),
-	secure_paths = require('./utils/middlewares/secure_paths'),
-	auth = require('./utils/middlewares/auth');
+	secure_paths = require('./lib/middlewares/secure_paths'),
+	auth = require('./lib/middlewares/auth');
 
 // Configuration
 module.exports = function (app) {
@@ -45,6 +45,12 @@ module.exports = function (app) {
 	app.configure('production', function () {
 		app.use(express.errorHandler()); 
 	});
+
+	dot.templateSettings.evaluate =    /<%([\s\S]+?)%>/g;
+	dot.templateSettings.interpolate = /<%=([\s\S]+?)%>/g;
+	dot.templateSettings.encode =      /<%!([\s\S]+?)%>/g;
+	dot.templateSettings.use =         /<%#([\s\S]+?)%>/g; //compile time evaluation
+	dot.templateSettings.define =      /<%##\s*([\w\.$]+)\s*(\:|=)([\s\S]+?)#%>/g; //compile time defs
 	
 	app.config = config;
 };

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title><%= it.title %></title>
+	<link rel="icon" href="/images/favicon.png" type="image/png">
+	<link rel="stylesheet" href="/css/admin.css" media="screen">
+</head>
+<body>
+	<header id="top">
+		<div class="container">
+			<h1>Panel administracyjny</h1>
+
+			<% if (it._menu_partial) { %>
+				<%= it.partial(it._menu_partial) %>
+			<% } %>
+		</div>
+	</header>
+
+	<% if (it._flash && it._flash.error) { %>
+		<p id="flash" class="error"><%= it.flash.error %></p>
+	<% } %>
+	<% if (it._flash && it._flash.notice) { %>
+		<p id="flash" class="notice"><%= it.flash.notice %></p>
+	<% } %>
+
+	<section id="content" class="container">
+		<%= it.body %>
+	</section>
+</body>
+</html>

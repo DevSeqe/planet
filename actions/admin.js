@@ -1,14 +1,21 @@
 'use strict';
 
+var _ = require('underscore');
+
 module.exports = function (app) {
 
 	app.redirect('admin', '/admin');
 
-	app.get('/login', function (req, res) {
-		res.render('admin/login.html', {
-			layout: 'static.html',
-			title: 'Zaloguj się'
+	var opts = function (req, obj) {
+		return _.extend(obj || {}, {
+			layout: 'layout_static.html',
+			_menu_partial: 'admin/_menu.html',
+			_user: req.getUser()
 		});
+	};
+
+	app.get('/login', function (req, res) {
+		res.render('admin/login.html', opts(req));
 	});
 
 	app.post('/login', function (req, res) {
@@ -22,7 +29,7 @@ module.exports = function (app) {
 				res.redirect('admin');
 			}
 			else {
-				res.end('bledne haslo');
+				res.end('Błędne hasło');
 			}
 		});
 	});
@@ -33,6 +40,22 @@ module.exports = function (app) {
 	});
 
 	app.get('/admin', function (req, res) {
-		res.end('zalogowany: ' + req.isAuthenticated());
+		res.render('admin/articles.html', opts(req, {
+			title: 'Artykuły'
+		}));
+	});
+
+	app.get('/admin/article/new', function (req, res) {
+		var Article = app.db.model('Article');
+
+		res.render('admin/article_new.html', opts(req, {
+			title: 'Dodaj artykuł',
+			article: new Article()
+		}));
+	});
+
+	app.post('/admin/article/new', function (req, res) {
+		console.log(req.body);
+		res.end('');
 	});
 };

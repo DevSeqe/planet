@@ -2,8 +2,8 @@
 
 var mongoose = require('mongoose'),
 	schemas = {
-		Article: require('./model/Article'),
-		User: require('./model/User')
+		Article: require('./lib/model/Article'),
+		User: require('./lib/model/User')
 	},
 	db = null;
 

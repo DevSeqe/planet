@@ -20,7 +20,6 @@ time, mark, audio, video
 	padding: 0;
 	border: 0;
 	font-size: 100%;
-	font: inherit;
 	vertical-align: baseline;
 
 /* HTML5 display-role reset for older browsers */
@@ -44,13 +43,48 @@ table
 	border-spacing: 0;
 
 body
-	font: 0.875em/1.428 Ubuntu, 'Trebuchet Ms', sans-serif; /* 14px/20px */
+	font: 14px/1.5 Ubuntu, 'Trebuchet Ms', sans-serif;
 	background-color: #FFF;
 	color: #222;
 
 box-sizing(type)
-	-webkit-box-sizing: type
-	-moz-box-sizing: type
-	-o-box-sizing: type
-	-msie-box-sizing: type
-	box-sizing: type
+	-webkit-box-sizing: type;
+	-moz-box-sizing: type;
+	-o-box-sizing: type;
+	-msie-box-sizing: type;
+	box-sizing: type;
+
+display-box()
+	display: -webkit-box;
+	display: -moz-box;
+	display: -o-box;
+	display: -msie-box;
+	display: box;
+
+box-orient(dir)
+	-webkit-box-orient: dir;
+	-moz-box-orient: dir;
+	-o-box-orient: dir;
+	-msie-box-orient: dir;
+	box-orient: dir;
+
+box-align(pos)
+	-webkit-box-align: pos;
+	-moz-box-align: pos;
+	-o-box-align: pos;
+	-msie-box-align: pos;
+	box-align: pos;
+
+box-pack(pos)
+	-webkit-box-pack: pos;
+	-moz-box-pack: pos;
+	-o-box-pack: pos;
+	-msie-box-pack: pos;
+	box-pack: pos;
+
+box-flex(n)
+	-webkit-box-flex: n;
+	-moz-box-flex: n;
+	-o-box-flex: n;
+	-msie-box-flex: n;
+	box-flex: n;

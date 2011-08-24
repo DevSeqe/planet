@@ -2,9 +2,15 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>{{= it.title }}</title>
+<title><%= it.title %></title>
 </head>
 <body>
-	{{= it.body }}
+	<%= it.body %>
+	<% if (it.flash && it.flash.error) { %>
+		<p id="flash" class="error"><%= it.flash.error %></p>
+	<% } %>
+	<% if (it.flash && it.flash.info) { %>
+		<p id="flash" class="notice"><%= it.flash.notice %></p>
+	<% } %>
 </body>
 </html>

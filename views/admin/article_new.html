@@ -1,0 +1,8 @@
+<header>
+	<h1><%= it.title %></h1>
+	<ul class="actions">
+		<li><a href="/admin/">anuluj</a></li>
+	</ul>
+</header>
+
+<%= it.partial('admin/_article_form.html', { article: it.article }) %>

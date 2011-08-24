@@ -1,18 +1,81 @@
 @import "init"
 
+$c_beige_vlight = #F2F3F0
+$c_beige_light = #E5E6E3
+$c_beige = #999D96
+$c_beige_dark = #666963
+
+a
+	color: $c_beige_dark;
+	text-decoration: none;
+a:hover
+	color: $c_beige;
+
+html, body
+	width: 100%;
+
+body
+	display-box()
+	box-orient(vertical)
+	box-align(center)
+
+.container
+	width: 960px;
+
 #top
-	background-color: #F2F3F0;
-	border-bottom: solid 5px #E5E6E3;
+	background-color: $c_beige_vlight;
+	border-bottom: solid 5px $c_beige_light;
 	margin-bottom: 20px;
+	width: 100%;
+	display-box()
+	box-pack(center)
+
+	> .container
+		display-box()
+		box-orient(horizontal)
+		box-align(end)
 	
 	h1
-		padding: 35px 0 5px 70px;
-		box-sizing(border-box);
-		background: url('../images/planet_1.png') no-repeat left;
-		font-size: 1.714em; /* 24px */
+		padding: 45px 0 2px 70px;
+		margin-right: 40px;
+		background: url('../images/planet_1.png') no-repeat left 15px;
+		font-size: 24px;
 		font-weight: bold;
 		color: #5F5F57;
 
-.container
-	margin: 0 auto;
-	width: 960px;
+#menu li
+		display: inline-block;
+		margin-right: 5px;
+
+		> a
+			display: inline-block;
+			padding: 5px 15px;
+			background-color: $c_beige_light;
+
+
+#content
+	> header
+		height: 25px;
+		padding-bottom: 4px;
+		border-bottom: solid 3px $c_beige_light;
+		margin-bottom: 25px;
+
+		> h1
+			font-weight: bold;
+			font-size: 18px;
+			display: inline-block;
+
+		> .actions
+			float: right;
+			
+			> li
+				display: inline-block;
+				line-height: 25px;
+
+.def_form
+	.row
+		margin-bottom: 10px;
+
+		> label
+			display: inline-block;
+			width: 200px;

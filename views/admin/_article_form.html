@@ -1,0 +1,25 @@
+<form action="/admin/article/<%= it.article.isNew ? 'new' : 'edit' %>" method="post" class="def_form">
+	<p class="row">
+		<label for="article_title">Tytuł:</label>
+		<input type="text" name="article[title]" id="article_title">
+	</p>
+	<p class="row">
+		<label for="article_title_urlized">Tytuł (do URL-a):</label>
+		<input type="text" name="article[title_urlized]" id="article_title_urlized">
+	</p>
+	<p class="row">
+		<label for="article_created_at">Utworzony:</label>
+		<input type="text" name="article[created_at]" id="article_created_at">
+	</p>
+	<p class="row">
+		<label for="article_external_url">URL:</label>
+		<input type="text" name="article[external_url]" id="article_external_url">
+	</p>
+	<p class="row">
+		<label for="article_summary">Opis:</label>
+		<textarea rows="5" cols="30" name="article[summary]" id="article_summary"></textarea>
+	</p>
+	<p class="submit">
+		<button type="submit">Zapisz</button>
+	</p>
+</form>
