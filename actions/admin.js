@@ -1,6 +1,7 @@
 'use strict';
 
-var _ = require('underscore');
+var _ = require('underscore'),
+	Form = require('../lib/form.js');
 
 module.exports = function (app) {
 
@@ -10,7 +11,8 @@ module.exports = function (app) {
 		return _.extend(obj || {}, {
 			layout: 'layout_static.html',
 			_menu_partial: 'admin/_menu.html',
-			_user: req.getUser()
+			_user: req.getUser(),
+			_flash: req.flash()
 		});
 	};
 
@@ -47,15 +49,35 @@ module.exports = function (app) {
 
 	app.get('/admin/article/new', function (req, res) {
 		var Article = app.db.model('Article');
+		var article = new Article;
 
 		res.render('admin/article_new.html', opts(req, {
 			title: 'Dodaj artykuł',
-			article: new Article()
+			article: article,
+			form: Form(article)
 		}));
 	});
 
 	app.post('/admin/article/new', function (req, res) {
-		console.log(req.body);
-		res.end('');
+		var Article = app.db.model('Article');
+
+		var article = new Article,
+			form = Form(article);
+
+		form.bind(req.body.article);
+		form.save(function (err) {
+			if (err) {
+				req.flash('error', 'Błąd podczas zapisywania formularza');
+				res.render('admin/article_new.html', opts(req, {
+					title: 'Dodaj artykuł',
+					article: article,
+					form: form
+				}));
+			}
+			else {
+				req.flash('notice', 'Dodano artykuł');
+				res.redirect('admin');
+			}
+		});
 	});
 };

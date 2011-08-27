@@ -1,23 +1,27 @@
-<form action="/admin/article/<%= it.article.isNew ? 'new' : 'edit' %>" method="post" class="def_form">
+<form action="/admin/article/<%= it.article._id ? 'new' : 'edit' %>" method="post" class="def_form">
+	<% if (it.form.hasErrors()) { %>
+		<p class="errors"><%= it.form.errors_messages.join('<br>') %></p>
+	<% } %>
+
 	<p class="row">
 		<label for="article_title">Tytuł:</label>
-		<input type="text" name="article[title]" id="article_title">
+		<input type="text" name="article[title]" id="article_title" value="<%= it.article.title || '' %>">
 	</p>
 	<p class="row">
 		<label for="article_title_urlized">Tytuł (do URL-a):</label>
-		<input type="text" name="article[title_urlized]" id="article_title_urlized">
+		<input type="text" name="article[title_urlized]" id="article_title_urlized" value="<%= it.article.title_urlized || '' %>">
 	</p>
 	<p class="row">
 		<label for="article_created_at">Utworzony:</label>
-		<input type="text" name="article[created_at]" id="article_created_at">
+		<input type="text" name="article[created_at]" id="article_created_at" value="<%= it.article.created_at || '' %>">
 	</p>
 	<p class="row">
 		<label for="article_external_url">URL:</label>
-		<input type="text" name="article[external_url]" id="article_external_url">
+		<input type="text" name="article[external_url]" id="article_external_url" value="<%= it.article.external_url || '' %>">
 	</p>
 	<p class="row">
 		<label for="article_summary">Opis:</label>
-		<textarea rows="5" cols="30" name="article[summary]" id="article_summary"></textarea>
+		<textarea rows="5" cols="30" name="article[summary]" id="article_summary"><%= it.article.summary || '' %></textarea>
 	</p>
 	<p class="submit">
 		<button type="submit">Zapisz</button>

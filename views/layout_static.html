@@ -18,10 +18,10 @@
 	</header>
 
 	<% if (it._flash && it._flash.error) { %>
-		<p id="flash" class="error"><%= it.flash.error %></p>
+		<p id="flash" class="error"><%= it._flash.error %></p>
 	<% } %>
 	<% if (it._flash && it._flash.notice) { %>
-		<p id="flash" class="notice"><%= it.flash.notice %></p>
+		<p id="flash" class="notice"><%= it._flash.notice %></p>
 	<% } %>
 
 	<section id="content" class="container">

@@ -228,3 +228,8 @@ body {
   display: inline-block;
   width: 200px;
 }
+.def_form .errors {
+  color: #d00;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
