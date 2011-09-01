@@ -3,12 +3,13 @@
 	"version": "0.0.1",
 	"private": true,
 	"dependencies": {
-		"express": "2.4.3",
+		"express": ">= 2.4.3",
 		"stylus": ">= 0.0.1",
 		"dot": ">= 0.0.1",
-		"mongoose": ">= 1.8.2",
+		"mongoose": ">= 2.0.0",
 		"express-mongoose": ">= 0.0.2",
 		"supervisor": ">= 0.1.2",
-		"underscore": ">= 1.1.7"
+		"underscore": ">= 1.1.7",
+		"async": ">= 0.1.6"
 	}
 }

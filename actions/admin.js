@@ -1,11 +1,13 @@
 'use strict';
 
 var _ = require('underscore'),
-	Form = require('../lib/form.js');
+	Form = require('../lib/form'),
+	Pager = require('../lib/pager');
 
 module.exports = function (app) {
 
 	app.redirect('admin', '/admin');
+	app.redirect('admin_articles_list', '/admin/articles');
 
 	var opts = function (req, obj) {
 		return _.extend(obj || {}, {
@@ -42,9 +44,25 @@ module.exports = function (app) {
 	});
 
 	app.get('/admin', function (req, res) {
-		res.render('admin/articles.html', opts(req, {
-			title: 'Artykuły'
-		}));
+		res.redirect('admin_articles_list');
+	});
+
+	app.get('/admin/articles', function (req, res) {
+		var Article = app.db.model('Article');
+		var pager = new Pager(Article, req.query.page);
+
+		pager.exec(function (err, articles) {
+			if (err) {
+				console.log(err);
+				console.log(articles);
+				return res.end('ERROR');
+			}
+			res.render('admin/articles.html', opts(req, {
+				title: 'Artykuły',
+				pager: pager,
+				articles: articles
+			}));
+		});
 	});
 
 	app.get('/admin/article/new', function (req, res) {
@@ -76,7 +94,7 @@ module.exports = function (app) {
 			}
 			else {
 				req.flash('notice', 'Dodano artykuł');
-				res.redirect('admin');
+				res.redirect('admin_articles_list');
 			}
 		});
 	});
