@@ -5,8 +5,19 @@
 	</ul>
 </header>
 
-<% for(var i = 0; i < it.articles.length; ++i) { %>
-	<%= it.articles[i].title %>, 
-<% } %>
+<table>
+	<thead>
+		<tr>
+		</tr>
+	</thead>
+	<tbody>
+		<% it.articles.forEach(function (a) { %>
+			<tr>
+				<td><%= a.title %></td>
+				<td><%= a.title_urlized %></td>
+			</tr>
+		<% }); %>
+	</tbody>
+</table>
 
 <%= it.pager.last_page %>
