@@ -233,3 +233,43 @@ body {
   font-weight: bold;
   margin-bottom: 20px;
 }
+.def_form .submit > button {
+  padding: 5px 20px;
+  margin-right: 10px;
+}
+.pager {
+  border-top: solid 3px #e5e6e3;
+  text-align: right;
+}
+.pager > li {
+  display: inline-block;
+}
+.pager > li > a {
+  display: inline-block;
+  padding: 1px 8px;
+  background-color: #e5e6e3;
+  margin-left: 3px;
+}
+.pager > li.active	> a {
+  font-weight: bold;
+}
+table.def {
+  width: 100%;
+  margin-bottom: 15px;
+}
+table.def td,
+table.def th {
+  border: solid 1px #e5e6e3;
+  padding: 3px 8px;
+}
+table.def th {
+  background-color: #e5e6e3;
+  text-align: left;
+  border-right-color: #fff;
+}
+table.def th:last-child {
+  border-right-color: #e5e6e3;
+}
+table.def tr:nth-child(even) {
+  background-color: #fbfbfb;
+}

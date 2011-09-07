@@ -49,7 +49,7 @@ module.exports = function (app) {
 
 	app.get('/admin/articles', function (req, res) {
 		var Article = app.db.model('Article');
-		var pager = new Pager(Article, req.query.page);
+		var pager = new Pager(Article, req.query.page, { sort: ['created_at', -1 ] });
 
 		pager.exec(function (err, articles) {
 			if (err) {
@@ -69,33 +69,58 @@ module.exports = function (app) {
 		var Article = app.db.model('Article');
 		var article = new Article;
 
-		res.render('admin/article_new.html', opts(req, {
+		res.render('admin/article_edit.html', opts(req, {
 			title: 'Dodaj artykuł',
 			article: article,
 			form: Form(article)
 		}));
 	});
 
-	app.post('/admin/article/new', function (req, res) {
+	app.get('/admin/article/edit/:id', function (req, res) {
 		var Article = app.db.model('Article');
-
-		var article = new Article,
-			form = Form(article);
-
-		form.bind(req.body.article);
-		form.save(function (err) {
+		Article.findById(req.params.id, function (err, article) {
 			if (err) {
-				req.flash('error', 'Błąd podczas zapisywania formularza');
-				res.render('admin/article_new.html', opts(req, {
-					title: 'Dodaj artykuł',
-					article: article,
-					form: form
-				}));
+				throw err;
 			}
-			else {
-				req.flash('notice', 'Dodano artykuł');
-				res.redirect('admin_articles_list');
-			}
+
+			res.render('admin/article_edit.html', opts(req, {
+				title: 'Edytuj artykuł',
+				article: article,
+				form: Form(article)
+			}));
 		});
+	});
+
+	app.post('/admin/article/save', function (req, res) {
+		var Article = app.db.model('Article');
+		var save = function (article, form, isNew) {
+			form.bind(req.body.article);
+			form.save(function (err) {
+				if (err) {
+					req.flash('error', 'Błąd podczas zapisywania formularza');
+					res.render('admin/article_edit.html', opts(req, {
+						title: isNew ? 'Dodaj artykuł' : 'Edytuj artykuł',
+						article: article,
+						form: form
+					}));
+				}
+				else {
+					req.flash('notice', isNew ? 'Dodano artykuł' : 'Zapisano artykuł');
+					res.redirect('admin_articles_list');
+				}
+			});
+		}
+
+		if (req.body.article._id) {
+			Article.findById(req.body.article._id, function (err, article) {
+				var form = Form(article);
+				save(article, form, false);
+			});
+		}
+		else {
+			var article = new Article,
+				form = Form(article);
+			save(article, form, true);
+		}
 	});
 };

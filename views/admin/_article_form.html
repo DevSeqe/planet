@@ -1,4 +1,4 @@
-<form action="/admin/article/<%= it.article._id ? 'new' : 'edit' %>" method="post" class="def_form">
+<form action="/admin/article/save" method="post" class="def_form">
 	<% if (it.form.hasErrors()) { %>
 		<p class="errors"><%= it.form.errors_messages.join('<br>') %></p>
 	<% } %>
@@ -24,6 +24,10 @@
 		<textarea rows="5" cols="30" name="article[summary]" id="article_summary"><%= it.article.summary || '' %></textarea>
 	</p>
 	<p class="submit">
+		<% if (!it.article.isNew) { %>
+			<input type="hidden" name="article[_id]" value="<%= it.article._id %>">
+		<% } %>
 		<button type="submit">Zapisz</button>
+		<a href="/admin/articles">anuluj</a>
 	</p>
 </form>

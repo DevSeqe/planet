@@ -5,19 +5,43 @@
 	</ul>
 </header>
 
-<table>
+<table class="def articles">
 	<thead>
 		<tr>
+			<th>Tytuł</th>
+			<th>Tytuł skrócony</th>
+			<th>Utworzono</th>
+			<th></th>
 		</tr>
 	</thead>
 	<tbody>
 		<% it.articles.forEach(function (a) { %>
 			<tr>
-				<td><%= a.title %></td>
+				<td>
+					<a href="/admin/article/edit/<%= a._id %>">
+						<%= a.title %>
+					</a>
+				</td>
 				<td><%= a.title_urlized %></td>
+				<td><%= a.created_at %></td>
+				<td>
+					<a href="/admin/article/edit/<%= a._id %>">edytuj</a>
+				</td>
 			</tr>
-		<% }); %>
+		<% }) %>
 	</tbody>
 </table>
 
-<%= it.pager.last_page %>
+<% if (it.pager.needed) { %>
+	<ul class="pager">
+		<li class="first"><a href="?page=<%= it.pager.first_page %>">&Alpha;</a></li>
+		<li class="prev"><a href="?page=<%= it.pager.prev_page %>">&laquo;</a></li>
+		<% it.pager.list.forEach(function (p) { %>
+			<li class="<%= it.pager.current_page == p ? 'active' : '' %>">
+				<a href="?page=<%= p %>"><%= p %></a>
+			</li>
+		<% }) %>
+		<li class="next"><a href="?page=<%= it.pager.next_page %>">&raquo;</a></li>
+		<li class="last"><a href="?page=<%= it.pager.last_page %>">&Omega;</a></li>
+	</ul>
+<% } %>

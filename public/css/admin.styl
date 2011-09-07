@@ -45,13 +45,13 @@ body
 		color: #5F5F57;
 
 #menu li
-		display: inline-block;
-		margin-right: 5px;
+	display: inline-block;
+	margin-right: 5px;
 
-		> a
-			display: inline-block;
-			padding: 5px 15px;
-			background-color: $c_beige_light;
+	> a
+		display: inline-block;
+		padding: 5px 15px;
+		background-color: $c_beige_light;
 
 
 #content
@@ -86,3 +86,42 @@ body
 		font-weight: bold;
 		margin-bottom: 20px;
 
+	.submit
+		> button
+			padding: 5px 20px;
+			margin-right: 10px;
+
+.pager
+	border-top: solid 3px $c_beige_light;
+	text-align: right;
+
+	> li
+		display: inline-block;
+		
+		> a
+			display: inline-block;
+			padding: 1px 8px;
+			background-color: $c_beige_light;
+			margin-left: 3px;
+
+	> li.active	> a
+			font-weight: bold;
+
+table.def
+	width: 100%;
+	margin-bottom: 15px;
+
+	td, th
+		border: solid 1px $c_beige_light;
+		padding: 3px 8px;
+	
+	th
+		background-color: $c_beige_light;
+		text-align: left;
+		border-right-color: #FFF
+
+	th:last-child
+		border-right-color: $c_beige_light;
+
+	tr:nth-child(even)
+		background-color: #FBFBFB;
