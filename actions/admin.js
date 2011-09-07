@@ -13,8 +13,6 @@ module.exports = function (app) {
 		return _.extend(obj || {}, {
 			layout: 'layout_static.html',
 			_menu_partial: 'admin/_menu.html',
-			_user: req.getUser(),
-			_flash: req.flash()
 		});
 	};
 

@@ -36,6 +36,11 @@ module.exports = function (app) {
 				return dot.template(str);
 			}
 		});
+
+		app.dynamicHelpers({
+			_user: function (req, res) { return req.getUser() },
+			_flash: function (req, res) { return req.flash() }
+		});
 	});
 
 	app.configure('development', function () {
